@@ -18,6 +18,7 @@ alias rebrew="brew upgrade && brew cleanup"
 alias stalebrew='brew outdated'
 alias pour='brew install'
 alias drain='brew uninstall'
+alias update="brew upgrade && brew cleanup"
 
 if type brew &>/dev/null
 then

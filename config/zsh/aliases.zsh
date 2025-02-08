@@ -2,6 +2,7 @@
 alias edit="codium"
 alias code="codium"
 alias cat="bat"
+alias new="touch"
 alias grep="grep --color"
 alias guid='uuidgen | tr "[A-Z]" "[a-z]"'
 alias newtab="open -a iterm ."
@@ -9,6 +10,7 @@ alias preview="open -a preview"
 alias reload="source ~/.zshrc"
 alias sysinfo='system_profiler SPSoftwareDataType'
 alias tree='tree -a -I .git'
+alias mkcd='(){mkdir -p "$1"; cd "$1"}'
 alias -g -- -h='-h 2>&1 | bat --language=help --style=plain'
 alias -g -- --help='--help 2>&1 | bat --language=help --style=plain'
 
@@ -22,10 +24,10 @@ alias d="rm"
 alias u="cd .."
 
 # Directory Listings
-alias ls='eza --git --icons --group-directories-first'                      # ls
-alias l='eza -lbF --git --icons --group-directories-first --no-user'             # list, size, type, git
-alias ll='eza -lbGF --git --icons --group-directories-first'           # long list
-alias la='eza -lbaGF --icons --git  --group-directories-first'  # all list
+alias ls='eza --git --icons --group-directories-first'                     # ls
+# alias l='eza -lbF --git --icons --group-directories-first --no-user'       # list, size, type, git
+alias ll='eza -lbhGF --git --icons --group-directories-first'               # long list
+alias la='eza -lbhaGF --icons --git  --group-directories-first'             # all list
 
 # NPM aliases
 alias nr="npm run"

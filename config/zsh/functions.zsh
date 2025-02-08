@@ -1,38 +1,15 @@
-# Create debug file in current directory. Can be checked to turn on debug mode in scripts.
-function debug() {
-    # File path for the lock file
-    local lock_file="debug.lock"
+# Add custom function directory to fpath
+fpath=(~/.config/zsh/functions $fpath)
 
-    # Check if the lock file exists
-    if [[ -e "$lock_file" ]]; then
-        # Delete the lock file
-        rm "$lock_file"
-        echo "Lock file deleted."
-    else
-        # Create the lock file
-        touch "$lock_file"
-        echo "Lock file created."
-    fi
-}
+# Autoload all function files in ~/.config/zsh/functions
+for func_file in ~/.config/zsh/functions/*; do
+  autoload -Uz $(basename "$func_file")
+done
 
 function showpath {
     echo $PATH | sed 's/\:/\n/g'
 }
 
-# Function to recursively delete .DS_Store files
-function delete_ds_store_files() {
-    local dir=$1
-
-    # Remove .DS_Store files in the current directory
-    find "$dir" -type f -name .DS_Store -exec rm -f {} \;
-
-    # Recursively call the function for subdirectories
-    for sub_dir in "$dir"/*(/); do
-        delete_ds_store_files "$sub_dir"
-    done
-}
-
-alias nods="delete_ds_store_files"
 
 function aliases() {
   local alias_name
@@ -41,13 +18,19 @@ function aliases() {
   done | sort
 }
 
+function remove_dup_path {
+  local path_array=( $(tr ':' '\n' <<< "$PATH") )
+  local unique_path=( $(printf "%s\n" "${path_array[@]}" | sort -u) )
+  export PATH=$(printf "%s:" "${unique_path[@]}" | sed 's/:$//')
+}
+
 # Type to Siri
 function siri(){
     cliclick kd:fn kp:space ku:fn w:250 t:$1 kp:return
 }
 
 function chpwd() {
-  ls -l
+  eza -lbhGF --git --icons --group-directories-first
 }
 
 config() {
@@ -79,3 +62,15 @@ config() {
     esac
 }
 
+function man() {
+	env \
+		LESS_TERMCAP_md=$(tput bold; tput setaf 4) \
+		LESS_TERMCAP_me=$(tput sgr0) \
+		LESS_TERMCAP_mb=$(tput blink) \
+		LESS_TERMCAP_us=$(tput setaf 2) \
+		LESS_TERMCAP_ue=$(tput sgr0) \
+		LESS_TERMCAP_so=$(tput smso) \
+		LESS_TERMCAP_se=$(tput rmso) \
+		PAGER="${commands[less]:-$PAGER}" \
+		man "$@"
+}

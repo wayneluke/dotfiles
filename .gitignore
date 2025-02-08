@@ -1,2 +1,7 @@
-.DS_Store
-/config/Radarr
+**/.DS_Store
+Radarr/
+/config/zsh/plugins/fast-syntax-highlighting
+/config/zsh/plugins/zsh-autosuggestions
+/config/zsh/plugins/zsh-history-substring-search
+/config/zsh/plugins/zsh-utils
+/config/zsh/plugins/zsh-you-should-use
