@@ -1,5 +1,5 @@
 **/.DS_Store
-Radarr/
+/config/Radarr/
 /config/zsh/plugins/fast-syntax-highlighting
 /config/zsh/plugins/zsh-autosuggestions
 /config/zsh/plugins/zsh-history-substring-search
