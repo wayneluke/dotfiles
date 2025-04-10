@@ -1,26 +1,37 @@
 #!/bin/zsh
 
-# Define source and destination directories
-SRC="$HOME/.config/"
-DEST="$HOME/files/dotfiles/config"
+# Enable associative arrays in Zsh
+typeset -A SYNC_DIRS
 
-# Ensure destination exists
-mkdir -p "$DEST"
+# Define source → destination mapping
+SYNC_DIRS=(
+    "$HOME/.config"  "$HOME/files/dotfiles/config"
+    "$HOME/.local"   "$HOME/files/dotfiles/local"
+)
 
 # Rsync options:
-# -a : Archive mode (preserves permissions, symlinks, timestamps)
-# -v : Verbose output
-# -h : Human-readable sizes
-# --progress : Show progress
-# --delete : Remove files in destination that no longer exist in source
-# --exclude : Exclude cache, temp, and git files
+RSYNC_OPTS=(
+    -avh           # Archive mode, verbose, human-readable
+    --progress     # Show progress
+    --delete       # Delete extraneous files from destination
+    --exclude "*.cache"  # Exclude cache files
+    --exclude ".git"     # Exclude git directories
+    --exclude ".DS_Store"  # Exclude macOS system files
+    --exclude "Cache/"
+)
 
-rsync -avh --progress --delete \
-    --exclude "*.cache" \
-    --exclude ".git" \
-    --exclude ".DS_Store" \
-    --exclude "Cache/" \
-    "$SRC" "$DEST"
+# Loop through the associative array and sync each directory
+for SRC DEST in "${(@kv)SYNC_DIRS}"; do
+    echo "🔄 Syncing: $SRC → $DEST"
 
-# Print completion message
-echo "✅ Sync complete: $SRC → $DEST"
+    # Ensure destination exists
+    mkdir -p "$DEST"
+
+    # Perform sync
+    rsync "${RSYNC_OPTS[@]}" "$SRC/" "$DEST"
+
+    echo "✅ Done syncing: $SRC → $DEST"
+    echo "-----------------------------"
+done
+
+echo "🎉 All syncs completed!"

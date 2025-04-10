@@ -18,4 +18,4 @@ brew analytics off
 
 # Brew Apps installed from Brewfile
 echo -e "Installing apps..."
-brew bundle install --file Brewfile
+brew bundle install --file $HOME/.config/Brewfile

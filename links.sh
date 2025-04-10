@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List of directories to create symlinks for
-directories=("/opt/homebrew/var/homebrew/linked" "/Volumes/Secondary/Files" "/Volumes/Secondary/Sites" "/Volumes/Secondary/Customers")
+directories=("/Volumes/Secondary/Files" "/Volumes/Secondary/Sites" "/Volumes/Secondary/Customers")
 
 # Target directory for the symlinks
 #target_dir="~/"
