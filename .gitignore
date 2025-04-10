@@ -1,1 +1,5 @@
 /config/httpd
+/home/config/zsh/plugins/fast-syntax-highlighting
+/home/config/zsh/plugins/zsh-autosuggestions
+/home/config/zsh/plugins/zsh-history-substring-search
+/home/config/zsh/plugins
