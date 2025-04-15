@@ -1,4 +1,4 @@
-# Add Homebrew
+# Init Homebrew, Will fix the path later.
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 # Set Directory Variables.
